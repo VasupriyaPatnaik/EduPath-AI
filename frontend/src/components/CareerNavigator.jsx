@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, TrendingUp, Award, Calendar as CalendarIcon, Loader } from 'lucide-react';
+import { Sparkles, TrendingUp, Calendar as CalendarIcon, Loader } from 'lucide-react';
 import { api } from '../utils/api';
 import toast from 'react-hot-toast';
 
