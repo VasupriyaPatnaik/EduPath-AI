@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Target, TrendingUp, Loader, Brain, UserGraduate, FileAlt, Briefcase, University, BookOpen, ChartLine, Lightbulb, CheckCircle, AlertTriangle, Robot, ChalkboardUser, Percent } from 'lucide-react';
-import { api } from '../utils/api';
+import { Target, TrendingUp, Loader, Brain, User, FileText, Briefcase, University, BookOpen, ChartLine, Lightbulb, CheckCircle, AlertTriangle, Bot, GraduationCap, Percent } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const AdmissionPredictor = () => {
@@ -14,7 +13,7 @@ const AdmissionPredictor = () => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Intelligent probability calculation (matches the HTML version logic)
+  // Intelligent probability calculation
   const calculateProbability = (gpa, testScore, internships, university, course) => {
     // GPA contribution (out of 10) -> max 50%
     let gpaFactor = Math.min(50, (gpa / 10) * 50);
@@ -102,7 +101,6 @@ const AdmissionPredictor = () => {
 
     setLoading(true);
     
-    // Simulate API delay for realistic experience
     setTimeout(() => {
       const gpaNum = parseFloat(formData.gpa);
       const internshipsNum = parseInt(formData.internships) || 0;
@@ -150,7 +148,7 @@ const AdmissionPredictor = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6">
-      {/* Header with edu palette - matching HTML version */}
+      {/* Header */}
       <div className="rounded-2xl mb-8 overflow-hidden shadow-xl bg-gradient-to-r from-[#0F2B3D] via-[#1A4A6F] to-[#0F2B3D] p-8 text-white">
         <div className="flex items-center gap-3 flex-wrap">
           <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-sm">
@@ -172,7 +170,7 @@ const AdmissionPredictor = () => {
         <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
           <div className="bg-gradient-to-r from-slate-50 to-white px-6 py-4 border-b border-slate-100">
             <h2 className="text-xl font-bold flex items-center gap-2 text-slate-800">
-              <UserGraduate size={20} className="text-indigo-600" />
+              <User size={20} className="text-indigo-600" />
               Your Academic Profile
             </h2>
           </div>
@@ -196,7 +194,7 @@ const AdmissionPredictor = () => {
               {/* Test Score */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">
-                  <FileAlt size={14} className="inline mr-1 text-slate-500" /> Test Score (GRE/GMAT/IELTS)
+                  <FileText size={14} className="inline mr-1 text-slate-500" /> Test Score (GRE/GMAT/IELTS)
                 </label>
                 <input
                   type="text"
@@ -368,7 +366,7 @@ const AdmissionPredictor = () => {
 
                 {/* Footer note */}
                 <div className="text-center text-xs text-slate-400 pt-2 border-t border-slate-100 mt-2">
-                  <Robot size={12} className="inline mr-1" /> AI recommendation based on historical admit patterns
+                  <Bot size={12} className="inline mr-1" /> AI recommendation based on historical admit patterns
                 </div>
               </div>
             )}
@@ -378,7 +376,7 @@ const AdmissionPredictor = () => {
 
       {/* Educational footer */}
       <div className="mt-8 text-center text-sm text-slate-500 bg-white/60 rounded-xl p-3 border border-slate-100">
-        <ChalkboardUser size={14} className="inline mr-1" /> Smart Study AI Assistant — Predictive model uses GPA, test scores, internships & university reputation.
+        <GraduationCap size={14} className="inline mr-1" /> Smart Study AI Assistant — Predictive model uses GPA, test scores, internships & university reputation.
         <span className="hidden md:inline-block"> | Get personalized guidance for master's & PhD admissions.</span>
       </div>
     </div>

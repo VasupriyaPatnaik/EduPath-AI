@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { 
-  GraduationCap, ChartLine, MapPin, Tag, Calendar, 
-  CheckCircle, HandHelping, Lightbulb, Gift, TrendingUp,
-  UserGraduate, Rupee, Globe, Target, PlayCircle, 
-  Brain, Trophy, Info, X, Clock, Briefcase, Award,
-  Heart, Sparkles, Star
+  Compass, TrendingUp, Award, Calendar as CalendarIcon, Loader,
+  MapPin, Tag, CheckCircle, HandHelping, Lightbulb, Gift, 
+  User, Briefcase, Globe, Target, PlayCircle, Brain, 
+  Trophy, Info, X, Clock, Sparkles, Star, GraduationCap,
+  DollarSign, Heart
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -117,7 +117,6 @@ const CareerNavigator = () => {
     setLoading(true);
     setRecommendations([]);
     
-    // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 800));
     
     const scoreNum = parseFloat(academicScore) || 70;
@@ -177,7 +176,6 @@ const CareerNavigator = () => {
     toast.success(`Found ${recommendationsList.length} universities matching your profile!`);
   };
 
-  // Categorize recommendations
   const affordableUnis = recommendations.filter(u => u.financial.status === 'within_budget');
   const manageableUnis = recommendations.filter(u => u.financial.status === 'small_gap' || u.financial.status === 'medium_gap');
   const scholarshipUnis = recommendations.filter(u => u.financial.status === 'large_gap');
@@ -197,10 +195,10 @@ const CareerNavigator = () => {
         </p>
         <div className="flex flex-wrap gap-2 mt-4">
           <span className="bg-white/20 px-3 py-1.5 rounded-full text-xs flex items-center gap-1">
-            <ChartLine size={12} /> ML Predictions
+            <TrendingUp size={12} /> ML Predictions
           </span>
           <span className="bg-white/20 px-3 py-1.5 rounded-full text-xs flex items-center gap-1">
-            <Rupee size={12} /> Budget Analysis
+            <DollarSign size={12} /> Budget Analysis
           </span>
           <span className="bg-white/20 px-3 py-1.5 rounded-full text-xs flex items-center gap-1">
             <HandHelping size={12} /> Loan Assessment
@@ -227,10 +225,10 @@ const CareerNavigator = () => {
       </div>
 
       {/* Input Form */}
-      <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xl border border-indigo-100 overflow-hidden">
         <div className="bg-slate-50 px-6 py-4 border-b border-slate-100">
           <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-            <UserGraduate size={20} className="text-indigo-600" />
+            <User size={20} className="text-indigo-600" />
             Your Profile
           </h2>
         </div>
@@ -251,7 +249,7 @@ const CareerNavigator = () => {
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1">
-                <Rupee size={14} className="text-emerald-600" /> Your Budget (INR Lakhs) - 1st Year
+                <DollarSign size={14} className="text-emerald-600" /> Your Budget (INR Lakhs) - 1st Year
               </label>
               <input
                 type="number"
@@ -430,7 +428,7 @@ const UniversityCard = ({ uni, onClick, getCardClass, getProbClass, getProbText 
         </div>
         <div className="flex justify-between text-sm mb-3">
           <span className="flex items-center gap-1"><Tag size={12} className="text-emerald-600" />₹{uni.costLakhs}L/year</span>
-          <span className="flex items-center gap-1"><Calendar size={12} />{uni.deadline}</span>
+          <span className="flex items-center gap-1"><CalendarIcon size={12} />{uni.deadline}</span>
         </div>
         <div className={`p-2 rounded-lg text-xs text-white ${uni.financial.badgeClass} mb-2`}>
           {uni.financial.status === 'within_budget' ? '✓ ' : '📊 '}{uni.financial.badge}

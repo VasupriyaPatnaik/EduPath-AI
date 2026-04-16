@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Calendar, Clock, CheckCircle, Target, 
-  Loader, AlertCircle, BookOpen, GraduationCap,
-  FileText, DollarSign, Plane, Home, Award
-} from 'lucide-react';
+import { Calendar, Clock, CheckCircle, Target, Loader, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const TimelineGenerator = () => {
@@ -199,7 +195,7 @@ const TimelineGenerator = () => {
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                <BookOpen size={16} className="text-indigo-600" />
+                <AlertCircle size={16} className="text-indigo-600" />
                 Tests Already Taken
               </label>
               <select
