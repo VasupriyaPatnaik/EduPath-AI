@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, TrendingUp, BookOpen, Users, Clock } from 'lucide-react';
+import { Sparkles, TrendingUp, Clock } from 'lucide-react';
 
 const PersonalizedFeed = ({ userProfile }) => {
   const [recommendations, setRecommendations] = useState([]);

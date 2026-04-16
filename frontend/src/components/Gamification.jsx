@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Flame, Star, Gift, TrendingUp, Target, Zap } from 'lucide-react';
+import { Award, Flame, Star, Target, CheckCircle } from 'lucide-react';
 import Confetti from 'react-confetti';
 import CountUp from 'react-countup';
 
@@ -70,7 +70,7 @@ const Gamification = ({ userActivity }) => {
   const completeTask = (taskId) => {
     setDailyTasks(prev => prev.map(task => 
       task.id === taskId && !task.completed 
-        ? { ...task, completed: true, claimed: true }
+        ? { ...task, completed: true }
         : task
     ));
     const task = dailyTasks.find(t => t.id === taskId);
@@ -102,23 +102,12 @@ const Gamification = ({ userActivity }) => {
     <div className="fixed bottom-4 right-4 z-50">
       {showConfetti && <Confetti />}
       
-      {/* Points Notification - will show when points earned */}
-      <style jsx>{`
-        @keyframes slideIn {
-          from { transform: translateX(100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-        .notification-slide {
-          animation: slideIn 0.3s ease-out;
-        }
-      `}</style>
-
       {/* Main Widget Button */}
       <div className="relative">
         <button 
           onClick={() => {
             const widget = document.getElementById('gamification-widget');
-            widget.classList.toggle('hidden');
+            if (widget) widget.classList.toggle('hidden');
           }}
           className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all"
         >

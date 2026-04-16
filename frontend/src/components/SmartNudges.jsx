@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, X, ArrowRight, Clock, Target } from 'lucide-react';
+import { Bell, X, ArrowRight } from 'lucide-react';
 
 const SmartNudges = ({ userJourneyStage }) => {
   const [nudges, setNudges] = useState([]);

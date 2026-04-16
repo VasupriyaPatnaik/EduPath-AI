@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Target, TrendingUp, AlertCircle, Loader } from 'lucide-react';
+import { Target, TrendingUp, Loader } from 'lucide-react';
 import { api } from '../utils/api';
 import toast from 'react-hot-toast';
 

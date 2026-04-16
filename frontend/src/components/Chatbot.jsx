@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Send, Bot, User, Loader } from 'lucide-react';
+import { Send, Bot, User, Loader } from 'lucide-react';
 import { api } from '../utils/api';
 import toast from 'react-hot-toast';
 
