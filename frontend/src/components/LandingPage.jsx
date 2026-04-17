@@ -235,22 +235,22 @@ const LandingPage = ({ onNavigate }) => {
               <ul className="space-y-2 text-sm">
                 <li><a href="#features" className="hover:text-white transition">Features</a></li>
                 <li><a href="#tools" className="hover:text-white transition">Tools</a></li>
-                <li><a href="#" className="hover:text-white transition">Pricing</a></li>
+                <li><a href="/#pricing" className="hover:text-white transition">Pricing</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-3">Company</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition">Careers</a></li>
+                <li><a href="/#about" className="hover:text-white transition">About Us</a></li>
+                <li><a href="mailto:support@edupath.ai" className="hover:text-white transition">Contact</a></li>
+                <li><a href="/#careers" className="hover:text-white transition">Careers</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-3">Legal</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
+                <li><a href="/privacy" className="hover:text-white transition">Privacy Policy</a></li>
+                <li><a href="/terms" className="hover:text-white transition">Terms of Service</a></li>
               </ul>
             </div>
           </div>

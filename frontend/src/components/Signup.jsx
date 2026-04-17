@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, User, Eye, EyeOff, AlertCircle, GraduationCap, ArrowRight, UserPlus } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, ArrowRight, GraduationCap } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const Signup = () => {
@@ -12,7 +12,6 @@ const Signup = () => {
   });
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -80,10 +79,10 @@ const Signup = () => {
       <div className="max-w-md w-full relative z-10">
         <div className="text-center mb-8 animate-fadeInUp">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-2xl mb-4">
-            <UserPlus className="w-10 h-10 text-white" />
+            <GraduationCap className="w-10 h-10 text-white" />
           </div>
-          <h2 className="text-4xl font-bold text-white mb-2">Create Account</h2>
-          <p className="text-indigo-200">Start your journey with EduPath AI</p>
+          <h2 className="text-4xl font-bold text-white mb-2">EduPath AI</h2>
+          <p className="text-indigo-200">Create an account to begin</p>
         </div>
 
         <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 animate-fadeInUp animation-delay-200">
@@ -168,20 +167,13 @@ const Signup = () => {
                   <Lock className="h-5 w-5 text-indigo-300" />
                 </div>
                 <input
-                  type={showConfirmPassword ? 'text' : 'password'}
+                  type="password"
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="block w-full pl-10 pr-12 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white placeholder:text-indigo-300/50"
+                  className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white placeholder:text-indigo-300/50"
                   placeholder="Confirm your password"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                >
-                  {showConfirmPassword ? <EyeOff className="h-5 w-5 text-indigo-300" /> : <Eye className="h-5 w-5 text-indigo-300" />}
-                </button>
               </div>
               {errors.confirmPassword && <p className="mt-1 text-sm text-red-300">{errors.confirmPassword}</p>}
             </div>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { 
   Compass, Calculator, DollarSign, MessageCircle, 
   Target, Calendar, GraduationCap, LogOut, 
-  Menu, X, LogIn, UserPlus, Sparkles
+  Menu, X, LogIn, UserPlus
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
