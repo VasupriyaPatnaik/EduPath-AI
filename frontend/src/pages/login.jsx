@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Mail, Lock, LogIn, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 const Login = ({ onSwitchToSignup, onLoginSuccess }) => {
@@ -6,6 +8,7 @@ const Login = ({ onSwitchToSignup, onLoginSuccess }) => {
     email: '',
     password: ''
   });
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -40,26 +43,22 @@ const Login = ({ onSwitchToSignup, onLoginSuccess }) => {
     
     // Simulate API call
     setTimeout(() => {
-      // Mock successful login
-      if (formData.email === 'demo@example.com' && formData.password === 'password123') {
-        // Success - call parent component callback
-        if (onLoginSuccess) {
-          onLoginSuccess({
-            email: formData.email,
-            name: 'Demo User'
-          });
-        }
-        // Show success message (you can integrate toast here)
-        alert('Login successful! Redirecting...');
-      } else {
-        setErrors({
-          submit: 'Invalid email or password. Try: demo@example.com / password123'
-        });
-      }
-      setLoading(false);
-    }, 1500);
-  };
+  if (
+    formData.email === "demo@example.com" &&
+    formData.password === "password123"
+  ) {
+    navigate("/dashboard", { replace: true });
 
+  } else {
+    setErrors({
+      submit:
+        "Invalid email or password. Try: demo@example.com / password123",
+    });
+  }
+
+  setLoading(false);
+}, 1500);
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -199,15 +198,12 @@ const Login = ({ onSwitchToSignup, onLoginSuccess }) => {
 
           {/* Sign Up Link */}
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              Don't have an account?{' '}
-              <button
-                onClick={onSwitchToSignup}
-                className="text-indigo-600 hover:text-indigo-700 font-semibold"
-              >
-                Create an account
-              </button>
-            </p>
+           <p>
+  Don't have an account?{" "}
+  <Link to="/signup" className="text-blue-600 font-medium">
+    Create an account
+  </Link>
+</p>
           </div>
         </div>
       </div>

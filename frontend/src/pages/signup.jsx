@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import { User, Mail, Lock, UserPlus, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 
-const Register = ({ onSwitchToLogin, onRegisterSuccess }) => {
+const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -89,14 +90,7 @@ const Register = ({ onSwitchToLogin, onRegisterSuccess }) => {
         setLoading(false);
       } else {
         // Success - call parent component callback
-        if (onRegisterSuccess) {
-          onRegisterSuccess({
-            username: formData.username,
-            email: formData.email
-          });
-        }
-        alert('Registration successful! Please login to continue.');
-        setLoading(false);
+        alert("Registration successful!");
       }
     }, 1500);
   };
@@ -340,24 +334,24 @@ const Register = ({ onSwitchToLogin, onRegisterSuccess }) => {
             </button>
 
             {/* Terms Agreement */}
-            <p className="text-xs text-center text-gray-500 mt-4">
-              By creating an account, you agree to our{' '}
-              <a href="#" className="text-indigo-600 hover:text-indigo-700">Terms of Service</a>{' '}
-              and{' '}
-              <a href="#" className="text-indigo-600 hover:text-indigo-700">Privacy Policy</a>
-            </p>
+           <p>
+  Already have an account?{" "}
+  <Link to="/" className="text-blue-600 font-medium">
+    Sign in here
+  </Link>
+</p>
           </form>
 
           {/* Login Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <button
-                onClick={onSwitchToLogin}
-                className="text-indigo-600 hover:text-indigo-700 font-semibold"
-              >
-                Sign in here
-              </button>
+             <Link
+  to="/"
+  className="text-indigo-600 hover:text-indigo-700 font-semibold"
+>
+  Sign in here
+</Link>
             </p>
           </div>
         </div>
