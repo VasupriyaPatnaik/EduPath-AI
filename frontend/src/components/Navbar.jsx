@@ -64,7 +64,7 @@ const Navbar = ({ activeTab, setActiveTab, isLoggedIn, userName, showTools = fal
                         : 'text-indigo-200 hover:bg-indigo-500/10 hover:text-white'
                     }`}
                   >
-                    <Icon size={16} className="transition-transform group-hover:scale-105" />
+                    <Icon size={18} className="transition-transform group-hover:scale-105" />
                     <span className="text-sm font-medium">{item.label}</span>
                   </button>
                 );
