@@ -141,7 +141,7 @@ const Dashboard = ({ onNavigate }) => {
             <span className="font-bold text-gray-800">EduNexus</span>
           </div>
           <p className="text-gray-400 text-xs">
-            © 2024 EduNexus — Premium AI Smart Study Assistant. Empowering students to achieve their global education dreams.
+            © 2026 EduNexus — Premium AI Smart Study Assistant. Empowering students to achieve their global education dreams.
           </p>
         </div>
       </footer>
