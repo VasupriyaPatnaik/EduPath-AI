@@ -65,7 +65,7 @@ const LandingPage = ({ onNavigate }) => {
                 to="/login"
                 className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-2xl transition-all hover:scale-105 flex items-center gap-2"
               >
-                Get Started Free
+                Get Started
                 <ArrowRight size={18} />
               </Link>
               <a

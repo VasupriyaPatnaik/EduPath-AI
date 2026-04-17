@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, LogIn, Eye, EyeOff, AlertCircle, GraduationCap, Sparkles, ArrowRight } from 'lucide-react';
+import { Mail, Lock, LogIn, Eye, EyeOff, AlertCircle, GraduationCap, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const Login = ({ onLoginSuccess }) => {
@@ -18,18 +18,22 @@ const Login = ({ onLoginSuccess }) => {
     
     if (!formData.email) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
     }
     
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
     }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const buildDisplayName = (email) => {
+    const baseName = email.split('@')[0] || email;
+    return baseName
+      .replace(/[._-]+/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase())
+      .trim();
   };
 
   const handleSubmit = async (e) => {
@@ -41,20 +45,14 @@ const Login = ({ onLoginSuccess }) => {
     
     setLoading(true);
     
-    // Simulate API call
     setTimeout(() => {
-      if (formData.email === "demo@example.com" && formData.password === "password123") {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userEmail', formData.email);
-        toast.success('Login successful! Welcome back!');
-        navigate('/app', { replace: true });
-        if (onLoginSuccess) onLoginSuccess();
-      } else {
-        setErrors({
-          submit: "Invalid email or password. Try: demo@example.com / password123",
-        });
-        toast.error('Invalid credentials');
-      }
+      const userName = buildDisplayName(formData.email);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userEmail', formData.email);
+      localStorage.setItem('userName', userName);
+      toast.success(`Login successful! Welcome, ${userName}!`);
+      navigate('/app', { replace: true });
+      if (onLoginSuccess) onLoginSuccess();
       setLoading(false);
     }, 1000);
   };
@@ -194,14 +192,6 @@ const Login = ({ onLoginSuccess }) => {
               )}
             </button>
 
-            {/* Demo Credentials Hint */}
-            <div className="bg-indigo-500/20 border border-indigo-400/30 rounded-lg p-3 backdrop-blur-sm">
-              <p className="text-xs text-indigo-200 mb-1 font-semibold flex items-center gap-1">
-                <Sparkles size={12} /> Demo Credentials:
-              </p>
-              <p className="text-xs text-indigo-200">Email: demo@example.com</p>
-              <p className="text-xs text-indigo-200">Password: password123</p>
-            </div>
           </form>
 
           {/* Sign Up Link */}

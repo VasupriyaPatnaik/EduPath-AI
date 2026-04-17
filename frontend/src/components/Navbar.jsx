@@ -10,6 +10,10 @@ import toast from 'react-hot-toast';
 const Navbar = ({ activeTab, setActiveTab, isLoggedIn, showTools = false }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const displayName =
+    localStorage.getItem('userName') ||
+    localStorage.getItem('userEmail')?.split('@')[0] ||
+    'User';
 
   const tools = [
     { id: 'navigator', icon: Compass, label: 'Career Navigator' },
@@ -89,14 +93,18 @@ const Navbar = ({ activeTab, setActiveTab, isLoggedIn, showTools = false }) => {
           {/* Auth Buttons / User Menu */}
           <div className="hidden md:flex items-center space-x-3">
             {isLoggedIn ? (
-              // Logged in - Show Logout button
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-2 px-3 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition"
-              >
-                <LogOut size={16} />
-                <span className="text-sm font-medium">Logout</span>
-              </button>
+              <div className="flex items-center gap-3">
+                <div className="px-3 py-2 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 font-semibold text-sm max-w-[12rem] truncate">
+                  {displayName}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-3 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition"
+                >
+                  <LogOut size={16} />
+                  <span className="text-sm font-medium">Logout</span>
+                </button>
+              </div>
             ) : (
               // Not logged in - Show Sign In / Sign Up buttons
               <>
@@ -173,15 +181,20 @@ const Navbar = ({ activeTab, setActiveTab, isLoggedIn, showTools = false }) => {
             
             <div className="pt-3 border-t border-gray-100">
               {isLoggedIn ? (
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-red-50 text-red-600 rounded-lg"
-                >
-                  <LogOut size={18} /> Logout
-                </button>
+                <div className="flex flex-col gap-2">
+                  <div className="px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-100 font-semibold text-center">
+                    {displayName}
+                  </div>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-red-50 text-red-600 rounded-lg"
+                  >
+                    <LogOut size={18} /> Logout
+                  </button>
+                </div>
               ) : (
                 <div className="flex flex-col gap-2">
                   <Link
