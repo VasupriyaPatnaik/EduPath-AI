@@ -19,10 +19,10 @@ const Gamification = ({ userActivity }) => {
 
   // Load saved data
   useEffect(() => {
-    const savedPoints = localStorage.getItem('edunexus_points');
-    const savedStreak = localStorage.getItem('edunexus_streak');
-    const lastLogin = localStorage.getItem('edunexus_last_login');
-    const savedBadges = localStorage.getItem('edunexus_badges');
+    const savedPoints = localStorage.getItem('edupath_ai_points');
+    const savedStreak = localStorage.getItem('edupath_ai_streak');
+    const lastLogin = localStorage.getItem('edupath_ai_last_login');
+    const savedBadges = localStorage.getItem('edupath_ai_badges');
     
     if (savedPoints) setPoints(parseInt(savedPoints));
     if (savedStreak) setStreak(parseInt(savedStreak));
@@ -42,14 +42,14 @@ const Gamification = ({ userActivity }) => {
     } else {
       setStreak(1);
     }
-    localStorage.setItem('edunexus_last_login', new Date().toISOString());
+    localStorage.setItem('edupath_ai_last_login', new Date().toISOString());
   }, []);
 
   // Save points
   useEffect(() => {
-    localStorage.setItem('edunexus_points', points);
-    localStorage.setItem('edunexus_streak', streak);
-    localStorage.setItem('edunexus_badges', JSON.stringify(badges));
+    localStorage.setItem('edupath_ai_points', points);
+    localStorage.setItem('edupath_ai_streak', streak);
+    localStorage.setItem('edupath_ai_badges', JSON.stringify(badges));
     
     // Update level (every 500 points)
     const newLevel = Math.floor(points / 500) + 1;

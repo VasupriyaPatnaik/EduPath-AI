@@ -32,7 +32,7 @@ const useUserStore = create(
       completeOnboarding: () => set({ onboardingCompleted: true })
     }),
     {
-      name: 'edunexus-storage'
+        name: 'edupath_ai_storage'
     }
   )
 );
