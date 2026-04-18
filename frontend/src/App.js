@@ -10,7 +10,7 @@ import AdmissionPredictor from './components/AdmissionPredictor';
 import TimelineGenerator from './components/TimelineGenerator';
 import Gamification from './components/Gamification';
 import PersonalizedFeed from './components/PersonalizedFeed';
-import SmartNudges from './components/SmartNudges';
+
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -130,7 +130,7 @@ const AppContent = () => {
       </div>
       
       {currentView === 'tool' && <Gamification />}
-      {currentView === 'tool' && <SmartNudges userJourneyStage={userJourneyStage} />}
+     
       
       {pointsNotification && (
         <div className="fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-slide-in">
