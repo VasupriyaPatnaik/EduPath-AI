@@ -85,34 +85,8 @@ const Navbar = ({ activeTab, setActiveTab, isLoggedIn, userName, showTools = fal
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {showTools ? (
-              // Tools Navigation
-              <div className="flex items-center space-x-1 bg-slate-50/50 rounded-xl p-1">
-                {tools.map((item) => {
-                  const Icon = item.icon;
-                  const isActive = activeTab === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => setActiveTab && setActiveTab(item.id)}
-                      className={`group relative flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                        isActive
-                          ? 'bg-white text-blue-600 shadow-sm'
-                          : 'text-slate-600 hover:bg-white/60 hover:text-blue-600'
-                      }`}
-                    >
-                      <Icon size={18} className="transition-transform group-hover:scale-105" />
-                      <span className="text-sm font-medium">{item.label}</span>
-                      {isActive && (
-                        <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-0.5 bg-blue-500 rounded-full"></span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            ) : (
-              // Marketing Navigation
+          {!showTools && (
+            <div className="hidden md:flex items-center space-x-1">
               <div className="flex items-center space-x-8">
                 {marketingLinks.map((link) => (
                   <a
@@ -125,12 +99,16 @@ const Navbar = ({ activeTab, setActiveTab, isLoggedIn, userName, showTools = fal
                   </a>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Auth Section */}
-          <div className="hidden md:flex items-center space-x-3">
-            {isLoggedIn ? (
+          <div className={`flex items-center space-x-3 ${showTools ? 'ml-auto' : ''}`}>
+            {showTools && isLoggedIn ? (
+              <div className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100">
+                <p className="text-sm font-semibold text-slate-700 max-w-[140px] truncate">{userName || 'Account'}</p>
+              </div>
+            ) : isLoggedIn ? (
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
@@ -198,17 +176,19 @@ const Navbar = ({ activeTab, setActiveTab, isLoggedIn, userName, showTools = fal
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl hover:bg-slate-100 transition text-slate-600"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {!showTools && (
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-xl hover:bg-slate-100 transition text-slate-600"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          )}
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
+      {!showTools && mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-slate-100 py-4 px-4 shadow-lg animate-slideDown">
           <div className="flex flex-col space-y-2">
             {/* User Info for Mobile */}
@@ -236,6 +216,8 @@ const Navbar = ({ activeTab, setActiveTab, isLoggedIn, userName, showTools = fal
                       setActiveTab && setActiveTab(item.id);
                       setMobileMenuOpen(false);
                     }}
+                    title={item.label}
+                    aria-label={item.label}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition ${
                       isActive
                         ? 'bg-blue-50 text-blue-600 font-semibold'
@@ -243,10 +225,6 @@ const Navbar = ({ activeTab, setActiveTab, isLoggedIn, userName, showTools = fal
                     }`}
                   >
                     <Icon size={20} />
-                    <div className="flex-1 text-left">
-                      <span className="text-sm font-medium">{item.label}</span>
-                      <p className="text-xs text-slate-400">{item.description}</p>
-                    </div>
                     {isActive && <div className="w-1 h-8 bg-blue-500 rounded-full"></div>}
                   </button>
                 );

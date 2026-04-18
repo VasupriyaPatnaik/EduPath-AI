@@ -183,13 +183,13 @@ const CareerNavigator = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8 space-y-8">
-        {/* Header - Premium Light Theme */}
+        {/* Header - With Compass Logo */}
         <div className="relative rounded-2xl p-6 md:p-8 bg-white shadow-lg border border-slate-100 overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"></div>
           <div className="relative">
             <div className="flex items-center gap-3 mb-3">
               <div className="bg-gradient-to-r from-blue-600 to-teal-500 p-2 rounded-2xl shadow-md">
-                <GraduationCap size={28} className="text-white" />
+                <Compass size={28} className="text-white" />
               </div>
               <h1 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
                 AI Career Navigator
@@ -215,7 +215,7 @@ const CareerNavigator = () => {
           </div>
         </div>
 
-        {/* Budget Info Banner - Enhanced */}
+        {/* Budget Info Banner */}
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm">
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -232,7 +232,7 @@ const CareerNavigator = () => {
           </div>
         </div>
 
-        {/* Input Form - Enhanced */}
+        {/* Input Form */}
         <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
           <div className="bg-gradient-to-r from-slate-50 to-white px-6 py-4 border-b border-slate-100">
             <div className="flex items-center gap-2">
@@ -439,7 +439,7 @@ const CareerNavigator = () => {
   );
 };
 
-// University Card Component - Premium
+// University Card Component
 const UniversityCard = ({ uni, onClick, getCardClass, getProbClass, getProbText }) => {
   return (
     <div
@@ -474,7 +474,7 @@ const UniversityCard = ({ uni, onClick, getCardClass, getProbClass, getProbText 
   );
 };
 
-// University Modal Component - Premium
+// University Modal Component
 const UniversityModal = ({ uni, onClose, getProbClass, getProbText }) => {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>

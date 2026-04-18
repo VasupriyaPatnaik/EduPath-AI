@@ -54,32 +54,6 @@ const LandingPage = ({ onNavigate }) => {
         <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-teal-100/20 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Navbar */}
-      <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center space-x-2 group">
-              <div className="bg-gradient-to-r from-blue-600 to-teal-500 p-1.5 rounded-xl shadow-lg group-hover:shadow-xl transition">
-                <GraduationCap size={22} className="text-white" />
-              </div>
-              <span className="font-bold text-xl bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">EduPath AI</span>
-            </Link>
-            <div className="hidden md:flex items-center space-x-7">
-              {['About', 'Vision', 'Features', 'Tools', 'Contact'].map((item) => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="text-slate-600 hover:text-blue-600 transition font-medium text-sm relative group">
-                  {item}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-                </a>
-              ))}
-            </div>
-            <div className="hidden md:flex items-center space-x-3">
-              <Link to="/login" className="px-4 py-2 text-slate-600 hover:text-blue-600 transition font-medium text-sm">Sign In</Link>
-              <Link to="/signup" className="bg-gradient-to-r from-blue-600 to-teal-500 text-white px-5 py-2 rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105 text-sm shadow-md">Get Started</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
