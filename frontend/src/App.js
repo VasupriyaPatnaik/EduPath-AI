@@ -15,6 +15,11 @@ import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
 
+const getAuthState = () => ({
+  isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
+  userName: localStorage.getItem('userName') || ''
+});
+
 // Protected Route wrapper component
 const ProtectedRoute = ({ children }) => {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -26,12 +31,12 @@ const ProtectedRoute = ({ children }) => {
 
 const PublicLanding = () => {
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const { isLoggedIn, userName } = getAuthState();
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar isLoggedIn={isLoggedIn} showTools={false} />
-      <LandingPage onNavigate={() => navigate('/login')} />
+      <Navbar isLoggedIn={isLoggedIn} userName={userName} showTools={false} />
+      <LandingPage onNavigate={() => navigate(isLoggedIn ? '/app' : '/login')} />
     </div>
   );
 };
@@ -44,6 +49,7 @@ const AppContent = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [pointsNotification, setPointsNotification] = useState(null);
   const isLoggedIn = true;
+  const userName = localStorage.getItem('userName') || '';
 
   useEffect(() => {
     const handleAction = (e) => {
@@ -95,6 +101,7 @@ const AppContent = () => {
         activeTab={activeTab} 
         setActiveTab={setActiveTab}
         isLoggedIn={isLoggedIn}
+        userName={userName}
         showTools={currentView === 'tool'}
       />
       
