@@ -10,7 +10,6 @@ import AdmissionPredictor from './components/AdmissionPredictor';
 import TimelineGenerator from './components/TimelineGenerator';
 import Gamification from './components/Gamification';
 import PersonalizedFeed from './components/PersonalizedFeed';
-
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Signup from './components/Signup';

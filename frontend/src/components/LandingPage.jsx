@@ -7,17 +7,18 @@ import {
   ArrowRight, CheckCircle, Shield, Globe,
   Zap, BarChart3, Briefcase, BookOpen, Eye, 
   Heart, Mail, Phone, MapPin, Star,
-  Layers, Rocket, Coffee, Smile, Quote
+  Layers, Rocket, Coffee, Smile, Quote,
+  GraduationCap as CapIcon
 } from 'lucide-react';
 
 const LandingPage = ({ onNavigate }) => {
   const navItems = [
-    { id: 'navigator', icon: Compass, label: 'Career Navigator', description: 'AI-powered university matching', gradient: 'from-blue-500 to-cyan-400' },
-    { id: 'roi', icon: BarChart3, label: 'ROI Calculator', description: 'Calculate education returns', gradient: 'from-emerald-500 to-teal-400' },
-    { id: 'loan', icon: Briefcase, label: 'Loan Eligibility', description: 'Check loan approval chances', gradient: 'from-violet-500 to-purple-400' },
-    { id: 'chatbot', icon: MessageCircle, label: 'AI Mentor', description: '24/7 study abroad assistant', gradient: 'from-indigo-500 to-blue-400' },
-    { id: 'admission', icon: Target, label: 'Admission Predictor', description: 'Predict admission chances', gradient: 'from-rose-500 to-pink-400' },
-    { id: 'timeline', icon: Calendar, label: 'Timeline', description: 'Plan your application journey', gradient: 'from-orange-500 to-amber-400' }
+    { id: 'navigator', icon: Compass, label: 'Career Navigator', description: 'AI-powered university matching with budget analysis', bgColor: 'bg-gradient-to-br from-blue-50 to-indigo-50', iconBg: 'from-blue-500 to-indigo-600' },
+    { id: 'roi', icon: BarChart3, label: 'ROI Calculator', description: 'Calculate education returns with EMI & break-even analysis', bgColor: 'bg-gradient-to-br from-emerald-50 to-teal-50', iconBg: 'from-emerald-500 to-teal-600' },
+    { id: 'loan', icon: Briefcase, label: 'Loan Eligibility', description: 'Check loan approval chances with bank-style underwriting', bgColor: 'bg-gradient-to-br from-violet-50 to-purple-50', iconBg: 'from-violet-500 to-purple-600' },
+    { id: 'chatbot', icon: MessageCircle, label: 'AI Mentor', description: '24/7 study abroad assistant powered by Groq LLM', bgColor: 'bg-gradient-to-br from-orange-50 to-amber-50', iconBg: 'from-orange-500 to-amber-600' },
+    { id: 'admission', icon: Target, label: 'Admission Predictor', description: 'Predict admission chances using AI probability engine', bgColor: 'bg-gradient-to-br from-rose-50 to-pink-50', iconBg: 'from-rose-500 to-pink-600' },
+    { id: 'timeline', icon: Calendar, label: 'Timeline', description: 'Plan your application journey month by month', bgColor: 'bg-gradient-to-br from-indigo-50 to-blue-50', iconBg: 'from-indigo-500 to-blue-600' }
   ];
 
   const features = [
@@ -52,6 +53,32 @@ const LandingPage = ({ onNavigate }) => {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl"></div>
         <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-teal-100/20 rounded-full blur-3xl"></div>
       </div>
+
+      {/* Navbar */}
+      <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link to="/" className="flex items-center space-x-2 group">
+              <div className="bg-gradient-to-r from-blue-600 to-teal-500 p-1.5 rounded-xl shadow-lg group-hover:shadow-xl transition">
+                <GraduationCap size={22} className="text-white" />
+              </div>
+              <span className="font-bold text-xl bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">EduPath AI</span>
+            </Link>
+            <div className="hidden md:flex items-center space-x-7">
+              {['About', 'Vision', 'Features', 'Tools', 'Contact'].map((item) => (
+                <a key={item} href={`#${item.toLowerCase()}`} className="text-slate-600 hover:text-blue-600 transition font-medium text-sm relative group">
+                  {item}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+                </a>
+              ))}
+            </div>
+            <div className="hidden md:flex items-center space-x-3">
+              <Link to="/login" className="px-4 py-2 text-slate-600 hover:text-blue-600 transition font-medium text-sm">Sign In</Link>
+              <Link to="/signup" className="bg-gradient-to-r from-blue-600 to-teal-500 text-white px-5 py-2 rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105 text-sm shadow-md">Get Started</Link>
+            </div>
+          </div>
+        </div>
+      </nav>
 
       {/* Hero Section */}
       <div className="relative overflow-hidden">
@@ -139,7 +166,7 @@ const LandingPage = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Vision Section - Redesigned Premium Timeline */}
+      {/* Vision Section - Timeline */}
       <div id="vision" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
           <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Our Roadmap</span>
@@ -147,9 +174,7 @@ const LandingPage = ({ onNavigate }) => {
           <p className="text-slate-600 max-w-2xl mx-auto">Creating a world where every student has equal access to quality global education</p>
         </div>
         
-        {/* Premium Timeline Design */}
         <div className="relative">
-          {/* Timeline Line */}
           <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-400 via-teal-400 to-blue-400 rounded-full hidden md:block"></div>
           
           <div className="space-y-12 md:space-y-0">
@@ -158,10 +183,7 @@ const LandingPage = ({ onNavigate }) => {
               const isEven = idx % 2 === 0;
               return (
                 <div key={idx} className={`relative md:flex md:items-center md:gap-8 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} mb-12 md:mb-16`}>
-                  {/* Timeline Dot */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-white shadow-md hidden md:block"></div>
-                  
-                  {/* Content Card */}
                   <div className={`md:w-1/2 ${isEven ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
                     <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-slate-100">
                       <div className={`inline-flex w-12 h-12 rounded-xl bg-gradient-to-br ${milestone.color} items-center justify-center mb-4 shadow-md group-hover:scale-110 transition`}>
@@ -170,13 +192,8 @@ const LandingPage = ({ onNavigate }) => {
                       <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold mb-3">{milestone.quarter}</div>
                       <h3 className="font-bold text-xl text-slate-800 mb-2">{milestone.title}</h3>
                       <p className="text-slate-500 text-sm leading-relaxed">{milestone.description}</p>
-                      <div className="mt-4 flex items-center gap-1 text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition">
-                        Learn more <ArrowRight size={14} />
-                      </div>
                     </div>
                   </div>
-                  
-                  {/* Empty spacer for alternating layout */}
                   <div className="hidden md:block md:w-1/2"></div>
                 </div>
               );
@@ -184,7 +201,6 @@ const LandingPage = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Vision Quote Card */}
         <div className="mt-16 bg-gradient-to-r from-blue-600 to-teal-500 rounded-2xl p-8 text-center text-white shadow-xl">
           <Quote size={40} className="mx-auto mb-4 opacity-50" />
           <p className="text-xl md:text-2xl font-medium italic max-w-3xl mx-auto">
@@ -193,7 +209,7 @@ const LandingPage = ({ onNavigate }) => {
           </p>
           <div className="mt-6 flex items-center justify-center gap-2">
             <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-              <GraduationCap size={24} className="text-white" />
+              <CapIcon size={24} className="text-white" />
             </div>
             <div className="text-left">
               <p className="font-semibold">EduPath AI Team</p>
@@ -203,7 +219,7 @@ const LandingPage = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Features Section */}
+      {/* Features Section - Clean minimal cards */}
       <div id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
           <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Why Choose Us</span>
@@ -214,26 +230,24 @@ const LandingPage = ({ onNavigate }) => {
           {features.map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <div key={idx} className="group bg-white rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100 relative overflow-hidden">
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 rounded-full blur-2xl transition`}></div>
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition`}>
-                  <Icon size={24} className="text-white" />
+              <div key={idx} className="group bg-white/80 backdrop-blur-sm rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-slate-100">
+                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4`}>
+                  <Icon size={20} className="text-white" />
                 </div>
-                <h3 className="font-bold text-lg text-slate-800 mb-2">{feature.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{feature.description}</p>
-                <div className="mt-4 flex items-center gap-1 text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition">Learn more <ChevronRight size={14} /></div>
+                <h3 className="font-semibold text-slate-800 mb-2">{feature.title}</h3>
+                <p className="text-slate-500 text-sm">{feature.description}</p>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Tools Section - Rounded Cards with Gradient Border */}
+      {/* Tools Section - Distinct style with light backgrounds */}
       <div id="tools" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">Our Tools</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mt-2 mb-4">Smart Tools for Your Journey</h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">Explore our AI-powered tools designed to help you make informed decisions</p>
+          <span className="text-blue-600 font-semibold text-sm uppercase tracking-wide">AI-Powered Tools</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mt-2 mb-4">Your Complete Study Abroad Toolkit</h2>
+          <p className="text-slate-600 max-w-2xl mx-auto">Six powerful AI tools to guide you from university discovery to education financing</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {navItems.map((item) => {
@@ -242,23 +256,23 @@ const LandingPage = ({ onNavigate }) => {
               <button
                 key={item.id}
                 onClick={() => onNavigate && onNavigate(item.id)}
-                className="group relative bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 text-left"
+                className={`group relative ${item.bgColor} rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-left p-6 border border-white/50`}
               >
-                {/* Gradient Border on Hover - Rounded */}
-                <div className="absolute inset-0 rounded-2xl p-[1.5px] bg-gradient-to-r from-blue-200 via-transparent to-blue-200 opacity-0 group-hover:opacity-100 transition"></div>
+                {/* Decorative elements */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-white/30 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/30 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition"></div>
                 
-                {/* Card Content */}
-                <div className="relative bg-white rounded-2xl p-6">
+                <div className="relative">
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-md group-hover:scale-110 transition`}>
-                      <Icon size={22} className="text-white" />
+                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.iconBg} flex items-center justify-center shadow-md group-hover:scale-110 transition shadow-lg`}>
+                      <Icon size={24} className="text-white" />
                     </div>
-                    <ChevronRight size={20} className="text-slate-300 group-hover:text-blue-500 group-hover:translate-x-1 transition" />
+                    <ChevronRight size={20} className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition" />
                   </div>
                   <h3 className="font-bold text-xl text-slate-800 mb-2">{item.label}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
                   <div className="mt-4 flex items-center gap-1 text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition">
-                    Try now <ArrowRight size={14} />
+                    Launch Tool <ArrowRight size={14} />
                   </div>
                 </div>
               </button>
@@ -292,9 +306,9 @@ const LandingPage = ({ onNavigate }) => {
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { icon: Mail, title: 'Email Us', details: ['support@edupath.ai', 'hello@edupath.ai'], color: 'from-blue-500 to-cyan-400' },
+            { icon: Mail, title: 'Email Us', details: ['support@edupath.ai'], color: 'from-blue-500 to-cyan-400' },
             { icon: Phone, title: 'Call Us', details: ['+91 98765 43210', 'Mon-Fri, 10 AM - 7 PM'], color: 'from-emerald-500 to-teal-400' },
-            { icon: MapPin, title: 'Visit Us', details: ['Bangalore, India', 'Virtual Office'], color: 'from-violet-500 to-purple-400' }
+            { icon: MapPin, title: 'Visit Us', details: ['Visakhapatnam, Andhra Pradesh, India'], color: 'from-violet-500 to-purple-400' }
           ].map((item, idx) => {
             const Icon = item.icon;
             return (
