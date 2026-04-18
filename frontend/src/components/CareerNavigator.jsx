@@ -4,7 +4,7 @@ import {
   MapPin, Tag, CheckCircle, HandHelping, Lightbulb, Gift, 
   User, Briefcase, Globe, Target, PlayCircle, Brain, 
   Trophy, Info, X, Clock, Sparkles, Star, GraduationCap,
-  DollarSign, Heart, ArrowRight
+  DollarSign, Heart, ArrowRight, Zap, Shield, BookOpen
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -40,6 +40,7 @@ const CareerNavigator = () => {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedUni, setSelectedUni] = useState(null);
+  const [focusedField, setFocusedField] = useState(null);
 
   const countries = ['Any', 'USA', 'UK', 'Canada', 'Australia', 'Germany', 'Singapore', 'Netherlands', 'Belgium', 'Denmark'];
 
@@ -90,9 +91,9 @@ const CareerNavigator = () => {
   };
 
   const getCardClass = (financial) => {
-    if (financial.status === 'within_budget') return 'border-l-4 border-emerald-500 hover:shadow-emerald-100';
-    if (financial.status === 'small_gap' || financial.status === 'medium_gap') return 'border-l-4 border-blue-500 hover:shadow-blue-100';
-    return 'border-l-4 border-purple-500 hover:shadow-purple-100';
+    if (financial.status === 'within_budget') return 'border-l-4 border-emerald-500 hover:shadow-emerald-100/50';
+    if (financial.status === 'small_gap' || financial.status === 'medium_gap') return 'border-l-4 border-blue-500 hover:shadow-blue-100/50';
+    return 'border-l-4 border-purple-500 hover:shadow-purple-100/50';
   };
 
   const getProbClass = (prob) => {
@@ -180,59 +181,66 @@ const CareerNavigator = () => {
   const scholarshipUnis = recommendations.filter(u => u.financial.status === 'large_gap');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8 space-y-8">
-        {/* Header - Purple/Lavender Theme */}
-        <div className="rounded-2xl p-6 md:p-8 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-100 shadow-sm">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-2 rounded-2xl shadow-md">
-              <GraduationCap size={28} className="text-white" />
+        {/* Header - Premium Light Theme */}
+        <div className="relative rounded-2xl p-6 md:p-8 bg-white shadow-lg border border-slate-100 overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"></div>
+          <div className="relative">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="bg-gradient-to-r from-blue-600 to-teal-500 p-2 rounded-2xl shadow-md">
+                <GraduationCap size={28} className="text-white" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+                AI Career Navigator
+              </h1>
             </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-              AI Career Navigator
-            </h1>
-          </div>
-          <p className="text-slate-600 text-base max-w-2xl">
-            Smart university matching with budget analysis, scholarship info & part-time work estimates
-          </p>
-          <div className="flex flex-wrap gap-2 mt-4">
-            <span className="bg-purple-100 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-purple-700">
-              <TrendingUp size={12} /> ML Predictions
-            </span>
-            <span className="bg-purple-100 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-purple-700">
-              <DollarSign size={12} /> Budget Analysis
-            </span>
-            <span className="bg-purple-100 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-purple-700">
-              <HandHelping size={12} /> Loan Assessment
-            </span>
-            <span className="bg-purple-100 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-purple-700">
-              <Briefcase size={12} /> Part-time Work
-            </span>
+            <p className="text-slate-600 text-base max-w-2xl">
+              Smart university matching with budget analysis, scholarship info & part-time work estimates
+            </p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              <span className="bg-blue-50 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-blue-700">
+                <TrendingUp size={12} /> ML Predictions
+              </span>
+              <span className="bg-blue-50 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-blue-700">
+                <DollarSign size={12} /> Budget Analysis
+              </span>
+              <span className="bg-blue-50 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-blue-700">
+                <HandHelping size={12} /> Loan Assessment
+              </span>
+              <span className="bg-blue-50 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-blue-700">
+                <Briefcase size={12} /> Part-time Work
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Budget Info Banner - Pro Fix: Bold key numbers */}
-        <div className="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-xl">
+        {/* Budget Info Banner - Enhanced */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm">
           <div className="flex items-start gap-3">
-            <Lightbulb size={20} className="text-purple-600 mt-0.5 flex-shrink-0" />
+            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <Lightbulb size={16} className="text-blue-600" />
+            </div>
             <div className="text-sm">
-              <p className="font-semibold text-purple-900">💡 Understanding Your Budget of ₹{budget} Lakhs</p>
-              <p className="text-purple-700 mt-1">
+              <p className="font-semibold text-blue-900">💡 Understanding Your Budget of ₹{budget} Lakhs</p>
+              <p className="text-blue-800 mt-1 leading-relaxed">
                 This is your upfront amount for 1st year fees + living expenses. Many students cover gaps through:
-                <span className="font-medium"> education loans, scholarships (20-100% tuition), and part-time work </span>
-                <span className="font-bold text-purple-900">(₹8-15 Lakhs/year)</span>.
+                <span className="font-semibold"> education loans, scholarships (20-100% tuition), and part-time work </span>
+                <span className="font-bold text-blue-900">(₹8-15 Lakhs/year)</span>.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Input Form - Light Theme with more spacing */}
-        <div className="bg-white rounded-2xl shadow-lg border border-purple-100 overflow-hidden">
-          <div className="bg-purple-50/50 px-6 py-4 border-b border-purple-100">
-            <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-              <User size={20} className="text-purple-600" />
-              Your Profile
-            </h2>
+        {/* Input Form - Enhanced */}
+        <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+          <div className="bg-gradient-to-r from-slate-50 to-white px-6 py-4 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <User size={18} className="text-blue-600" />
+              </div>
+              <h2 className="text-xl font-bold text-slate-800">Your Profile</h2>
+            </div>
           </div>
           <div className="p-6">
             <div className="grid md:grid-cols-2 gap-6">
@@ -240,25 +248,33 @@ const CareerNavigator = () => {
                 <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-1">
                   <Heart size={14} className="text-rose-500" /> Field of Interest *
                 </label>
-                <input
-                  type="text"
-                  placeholder="e.g., Computer Science, MBA, Data Science"
-                  className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
-                  value={interest}
-                  onChange={(e) => setInterest(e.target.value)}
-                />
+                <div className={`relative transition-all duration-200 ${focusedField === 'interest' ? 'transform scale-[1.01]' : ''}`}>
+                  <input
+                    type="text"
+                    placeholder="e.g., Computer Science, MBA, Data Science"
+                    onFocus={() => setFocusedField('interest')}
+                    onBlur={() => setFocusedField(null)}
+                    className="w-full p-3 border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition"
+                    value={interest}
+                    onChange={(e) => setInterest(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-1">
                   <DollarSign size={14} className="text-emerald-600" /> Your Budget (INR Lakhs) - 1st Year
                 </label>
-                <input
-                  type="number"
-                  className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
-                  value={budget}
-                  onChange={(e) => setBudget(e.target.value)}
-                />
+                <div className={`relative transition-all duration-200 ${focusedField === 'budget' ? 'transform scale-[1.01]' : ''}`}>
+                  <input
+                    type="number"
+                    onFocus={() => setFocusedField('budget')}
+                    onBlur={() => setFocusedField(null)}
+                    className="w-full p-3 border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition"
+                    value={budget}
+                    onChange={(e) => setBudget(e.target.value)}
+                  />
+                </div>
                 <p className="text-xs text-slate-500 mt-1">*Your available funds for tuition + living expenses (1st year)</p>
               </div>
 
@@ -267,7 +283,7 @@ const CareerNavigator = () => {
                   <Globe size={14} className="text-sky-600" /> Preferred Country
                 </label>
                 <select
-                  className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition bg-white"
+                  className="w-full p-3 border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition bg-white"
                   value={preferredCountry}
                   onChange={(e) => setPreferredCountry(e.target.value)}
                 >
@@ -279,7 +295,7 @@ const CareerNavigator = () => {
 
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-1">
-                  <Target size={14} className="text-purple-600" /> Academic Score: <span className="font-bold text-purple-700">{academicScore}</span>%
+                  <Target size={14} className="text-blue-600" /> Academic Score: <span className="font-bold text-blue-700">{academicScore}</span>%
                 </label>
                 <input
                   type="range"
@@ -288,28 +304,27 @@ const CareerNavigator = () => {
                   step="1"
                   value={academicScore}
                   onChange={(e) => setAcademicScore(e.target.value)}
-                  className="w-full accent-purple-600"
+                  className="w-full accent-blue-600"
                 />
               </div>
             </div>
 
-            {/* Pro Fix: Added more spacing above and below button */}
-            <div className="mt-10 mb-4">
+            <div className="mt-8 mb-2">
               <button
                 onClick={getRecommendations}
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 text-lg disabled:opacity-50 transition-all hover:shadow-lg"
+                className="w-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-lg disabled:opacity-50 transition-all hover:shadow-xl group"
               >
                 {loading ? (
                   <>
-                    <Brain size={20} className="animate-pulse" />
+                    <Loader size={20} className="animate-spin" />
                     Analyzing {universitiesDB.length}+ universities...
                   </>
                 ) : (
                   <>
-                    <PlayCircle size={20} />
+                    <Sparkles size={20} className="group-hover:rotate-12 transition" />
                     Run AI Recommendation Engine
-                    <ArrowRight size={16} />
+                    <ArrowRight size={16} className="group-hover:translate-x-1 transition" />
                   </>
                 )}
               </button>
@@ -319,17 +334,21 @@ const CareerNavigator = () => {
 
         {/* Results Section */}
         {loading && (
-          <div className="bg-white rounded-2xl p-12 text-center shadow-lg border border-purple-100">
-            <Brain size={48} className="text-purple-400 animate-pulse mx-auto mb-4" />
-            <p className="text-slate-600">AI is analyzing {universitiesDB.length} universities based on your profile...</p>
+          <div className="bg-white rounded-2xl p-12 text-center shadow-lg border border-slate-100">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+              <Brain size={32} className="text-blue-600 animate-pulse" />
+            </div>
+            <p className="text-slate-600 font-medium">AI is analyzing {universitiesDB.length} universities based on your profile...</p>
           </div>
         )}
 
         {recommendations.length > 0 && !loading && (
           <div>
-            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
               <h2 className="text-2xl font-bold flex items-center gap-2 text-slate-800">
-                <Trophy size={24} className="text-amber-500" />
+                <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                  <Trophy size={18} className="text-amber-600" />
+                </div>
                 Your Matches ({recommendations.length} Universities)
               </h2>
               <span className="text-sm text-slate-500 flex items-center gap-1">
@@ -339,9 +358,12 @@ const CareerNavigator = () => {
 
             {affordableUnis.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-emerald-700 mb-3 flex items-center gap-2">
-                  <CheckCircle size={18} /> Within Your Budget ({affordableUnis.length})
-                </h3>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <CheckCircle size={14} className="text-emerald-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-emerald-700">Within Your Budget ({affordableUnis.length})</h3>
+                </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   {affordableUnis.map((uni, idx) => (
                     <UniversityCard
@@ -359,9 +381,12 @@ const CareerNavigator = () => {
 
             {manageableUnis.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-blue-700 mb-3 flex items-center gap-2">
-                  <HandHelping size={18} /> Manageable with Loan + Part-time Work ({manageableUnis.length})
-                </h3>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                    <HandHelping size={14} className="text-blue-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-blue-700">Manageable with Loan + Part-time Work ({manageableUnis.length})</h3>
+                </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   {manageableUnis.map((uni, idx) => (
                     <UniversityCard
@@ -379,10 +404,13 @@ const CareerNavigator = () => {
 
             {scholarshipUnis.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-purple-700 mb-3 flex items-center gap-2">
-                  <Award size={18} /> Scholarship Opportunities ({scholarshipUnis.length})
-                </h3>
-                <p className="text-sm text-slate-600 mb-3">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center">
+                    <Award size={14} className="text-purple-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-purple-700">Scholarship Opportunities ({scholarshipUnis.length})</h3>
+                </div>
+                <p className="text-sm text-slate-600 mb-3 ml-8">
                   These universities offer generous scholarships. Many students get 20-100% tuition coverage!
                 </p>
                 <div className="grid md:grid-cols-2 gap-4">
@@ -411,22 +439,22 @@ const CareerNavigator = () => {
   );
 };
 
-// University Card Component
+// University Card Component - Premium
 const UniversityCard = ({ uni, onClick, getCardClass, getProbClass, getProbText }) => {
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${getCardClass(uni.financial)}`}
+      className={`group bg-white rounded-xl shadow-md border border-slate-100 overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${getCardClass(uni.financial)}`}
     >
-      <div className="p-4">
-        <div className="flex justify-between items-start mb-2">
+      <div className="p-5">
+        <div className="flex justify-between items-start mb-3">
           <div>
-            <h3 className="font-bold text-slate-800">{uni.name}</h3>
-            <p className="text-sm text-slate-500 flex items-center gap-1">
+            <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{uni.name}</h3>
+            <p className="text-sm text-slate-500 flex items-center gap-1 mt-0.5">
               <MapPin size={12} /> {uni.country}
             </p>
           </div>
-          <span className={`px-2 py-1 rounded-full text-xs font-bold ${getProbClass(uni.admissionProbability)}`}>
+          <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${getProbClass(uni.admissionProbability)}`}>
             {getProbText(uni.admissionProbability)}
           </span>
         </div>
@@ -434,42 +462,45 @@ const UniversityCard = ({ uni, onClick, getCardClass, getProbClass, getProbText 
           <span className="flex items-center gap-1 text-slate-600"><Tag size={12} className="text-emerald-600" />₹{uni.costLakhs}L/year</span>
           <span className="flex items-center gap-1 text-slate-600"><CalendarIcon size={12} />{uni.deadline}</span>
         </div>
-        <div className={`p-2 rounded-lg text-xs font-medium ${uni.financial.badgeClass} mb-2`}>
+        <div className={`p-2 rounded-lg text-xs font-semibold ${uni.financial.badgeClass} mb-2 inline-block`}>
           {uni.financial.status === 'within_budget' ? '✓ ' : '📊 '}{uni.financial.badge}
         </div>
-        <p className="text-xs text-slate-500">{uni.financial.message.substring(0, 80)}...</p>
+        <p className="text-xs text-slate-500 mt-2">{uni.financial.message.substring(0, 80)}...</p>
+        <div className="mt-3 flex items-center gap-1 text-blue-600 text-xs font-medium opacity-0 group-hover:opacity-100 transition">
+          View Details <ArrowRight size={12} />
+        </div>
       </div>
     </div>
   );
 };
 
-// University Modal Component
+// University Modal Component - Premium
 const UniversityModal = ({ uni, onClose, getProbClass, getProbText }) => {
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
-      <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
-        <div className="bg-purple-50 px-6 py-4 rounded-t-2xl border-b border-purple-100 flex justify-between items-center sticky top-0">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
+      <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-scaleIn" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 rounded-t-2xl border-b border-slate-100 flex justify-between items-center sticky top-0">
           <h3 className="text-xl font-bold text-slate-800">{uni.name}</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition">
-            <X size={20} />
+          <button onClick={onClose} className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 transition shadow-sm">
+            <X size={16} />
           </button>
         </div>
         <div className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-3 text-sm">
-            <div><span className="font-semibold text-slate-600">Country:</span></div><div className="text-slate-800">{uni.country}</div>
-            <div><span className="font-semibold text-slate-600">Course:</span></div><div className="text-slate-800">{uni.course}</div>
+            <div><span className="font-semibold text-slate-600">Country:</span></div><div className="text-slate-800 font-medium">{uni.country}</div>
+            <div><span className="font-semibold text-slate-600">Course:</span></div><div className="text-slate-800 font-medium">{uni.course}</div>
             <div><span className="font-semibold text-slate-600">Admission Chance:</span></div>
-            <div><span className={`px-2 py-0.5 rounded-full text-xs font-bold ${getProbClass(uni.admissionProbability)}`}>{getProbText(uni.admissionProbability)}</span></div>
-            <div><span className="font-semibold text-slate-600">Annual Cost:</span></div><div className="text-slate-800">₹{uni.costLakhs} Lakhs</div>
-            <div><span className="font-semibold text-slate-600">Deadline:</span></div><div className="text-slate-800">{uni.deadline}</div>
+            <div><span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${getProbClass(uni.admissionProbability)}`}>{getProbText(uni.admissionProbability)}</span></div>
+            <div><span className="font-semibold text-slate-600">Annual Cost:</span></div><div className="text-slate-800 font-medium">₹{uni.costLakhs} Lakhs</div>
+            <div><span className="font-semibold text-slate-600">Deadline:</span></div><div className="text-slate-800 font-medium">{uni.deadline}</div>
           </div>
 
-          <div className="bg-purple-50 p-4 rounded-xl">
-            <h4 className="font-bold text-purple-800 mb-2 flex items-center gap-2">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl">
+            <h4 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
               <HandHelping size={16} /> Financial Assessment
             </h4>
             <div className="space-y-2 text-sm">
-              <p><span className="font-semibold text-slate-600">Status:</span> <span className={`px-2 py-0.5 rounded text-xs font-medium ${uni.financial.badgeClass}`}>{uni.financial.badge}</span></p>
+              <p><span className="font-semibold text-slate-600">Status:</span> <span className={`px-2 py-0.5 rounded text-xs font-semibold ${uni.financial.badgeClass}`}>{uni.financial.badge}</span></p>
               <p className="text-slate-700">{uni.financial.message}</p>
               {uni.financial.loanRequired > 0 && (
                 <>
@@ -478,7 +509,7 @@ const UniversityModal = ({ uni, onClose, getProbClass, getProbText }) => {
                 </>
               )}
               <p className="text-slate-700"><span className="font-semibold text-slate-600">Part-time Work:</span> {uni.partTimeWork}</p>
-              <p className="text-emerald-700 font-medium mt-2">💡 {uni.financial.recommendation}</p>
+              <p className="text-emerald-700 font-semibold mt-2">💡 {uni.financial.recommendation}</p>
             </div>
           </div>
 
@@ -497,7 +528,7 @@ const UniversityModal = ({ uni, onClose, getProbClass, getProbText }) => {
           </div>
         </div>
         <div className="px-6 pb-6">
-          <button onClick={onClose} className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2.5 rounded-xl font-semibold hover:shadow-lg transition-all">
+          <button onClick={onClose} className="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-[1.02]">
             Close
           </button>
         </div>
