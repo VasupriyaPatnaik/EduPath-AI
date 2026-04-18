@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader, Sparkles, Globe, GraduationCap, Briefcase, Heart } from 'lucide-react';
+import { Send, Bot, User, Loader, Sparkles, Globe, GraduationCap, Briefcase, Heart, MessageCircle, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const Chatbot = () => {
@@ -94,11 +94,9 @@ const Chatbot = () => {
     const userMessage = input.trim();
     setInput('');
     
-    // Add user message
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setLoading(true);
 
-    // Get conversation history for context (last 5 messages)
     const conversationHistory = messages.slice(-5).map(m => ({ role: m.role, content: m.content }));
 
     try {
@@ -128,139 +126,159 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-4 md:p-6">
-      {/* Hero Header with refined gradient */}
-      <div className="rounded-2xl p-6 md:p-8 mb-8 shadow-xl shadow-indigo-100/40 bg-gradient-to-r from-[#1E2A5E] via-[#2A3B7A] to-[#3E5A9C]">
-        <div className="flex items-center gap-3 flex-wrap">
-          <div className="bg-white/20 backdrop-blur-sm p-2 rounded-2xl">
-            <GraduationCap size={32} className="text-white" />
-          </div>
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white flex items-center gap-2 flex-wrap">
-              <span>EduSmart AI</span>
-              <span className="text-sm bg-emerald-400/30 backdrop-blur-sm px-3 py-1 rounded-full text-emerald-100 text-base font-medium">
-                Study Mentor
-              </span>
-            </h1>
-            <p className="text-indigo-100 text-md mt-1 max-w-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+      <div className="max-w-5xl mx-auto px-4 md:px-6 py-6 md:py-8 space-y-8">
+        
+        {/* Header - Matching CareerNavigator */}
+        <div className="relative rounded-2xl p-6 md:p-8 bg-white shadow-lg border border-slate-100 overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"></div>
+          <div className="relative">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="bg-gradient-to-r from-blue-600 to-teal-500 p-2 rounded-2xl shadow-md">
+                <Bot size={28} className="text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">
+                  AI Study Mentor
+                </h1>
+                <span className="inline-block mt-1 text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Powered by Groq LLM</span>
+              </div>
+            </div>
+            <p className="text-slate-600 text-base max-w-2xl">
               ✨ 24/7 AI assistant for universities, loans, visas, scholarships & SOPs
             </p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              <span className="bg-blue-50 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-blue-700">
+                <MessageCircle size={12} /> 24/7 Available
+              </span>
+              <span className="bg-blue-50 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-blue-700">
+                <Globe size={12} /> Study Abroad Expert
+              </span>
+              <span className="bg-blue-50 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-blue-700">
+                <Briefcase size={12} /> Loan Guidance
+              </span>
+              <span className="bg-blue-50 px-3 py-1.5 rounded-full text-xs flex items-center gap-1 text-blue-700">
+                <Heart size={12} /> Personalized Advice
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Chat Card */}
-      <div className="bg-white rounded-2xl shadow-2xl shadow-gray-200/60 overflow-hidden border border-gray-100/80">
-        {/* Chat messages area */}
-        <div className="h-[420px] overflow-y-auto p-5 bg-[#F9FAFF] custom-scroll" id="chatMessagesContainer">
-          {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`mb-5 flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} message-transition`}
-            >
-              <div className={`flex items-start gap-2.5 max-w-[80%] md:max-w-[70%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                {/* Avatar */}
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm ${
-                  msg.role === 'user' 
-                    ? 'bg-indigo-600' 
-                    : 'bg-gradient-to-br from-indigo-500 to-purple-600'
-                }`}>
-                  {msg.role === 'user' ? (
-                    <User size={16} className="text-white" />
-                  ) : (
-                    <Bot size={16} className="text-white" />
-                  )}
-                </div>
-                
-                {/* Message Bubble */}
-                <div className={`p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
-                  msg.role === 'user' 
-                    ? 'bg-indigo-600 text-white rounded-br-none' 
-                    : 'bg-white border border-indigo-50 text-gray-800 rounded-bl-none shadow-sm'
-                }`}>
-                  <span className="whitespace-pre-wrap break-words">{msg.content}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-          
-          {/* Loading Indicator */}
-          {loading && (
-            <div className="flex justify-start mb-4">
-              <div className="flex items-center gap-2 bg-white border border-gray-200 p-3 rounded-2xl shadow-sm">
-                <Loader size={16} className="animate-spin text-indigo-500" />
-                <span className="text-sm text-gray-500 font-medium">EduSmart is thinking...</span>
-              </div>
-            </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Suggested Questions */}
-        <div className="border-t border-gray-100 px-5 py-3 bg-white/80 backdrop-blur-sm">
-          <p className="text-xs font-semibold text-indigo-400 uppercase tracking-wide mb-2 flex items-center gap-1">
-            <Sparkles size={12} /> QUICK ASK
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {suggestedQuestions.map((question, idx) => (
-              <button
+        {/* Chat Card */}
+        <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+          {/* Chat messages area */}
+          <div className="h-[450px] overflow-y-auto p-5 bg-gradient-to-b from-slate-50 to-white custom-scroll">
+            {messages.map((msg, idx) => (
+              <div
                 key={idx}
-                onClick={() => handleSuggestionClick(question)}
-                className="text-xs md:text-sm bg-gray-100 hover:bg-indigo-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1.5 transition-all duration-150 hover:border-indigo-300 hover:text-indigo-700 font-medium"
+                className={`mb-5 flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} message-transition`}
               >
-                {question}
-              </button>
+                <div className={`flex items-start gap-2.5 max-w-[80%] md:max-w-[70%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
+                  {/* Avatar */}
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-md ${
+                    msg.role === 'user' 
+                      ? 'bg-gradient-to-r from-blue-600 to-teal-500' 
+                      : 'bg-gradient-to-br from-blue-500 to-indigo-600'
+                  }`}>
+                    {msg.role === 'user' ? (
+                      <User size={16} className="text-white" />
+                    ) : (
+                      <Bot size={16} className="text-white" />
+                    )}
+                  </div>
+                  
+                  {/* Message Bubble */}
+                  <div className={`p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
+                    msg.role === 'user' 
+                      ? 'bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-br-none' 
+                      : 'bg-white border border-slate-200 text-slate-700 rounded-bl-none shadow-sm'
+                  }`}>
+                    <span className="whitespace-pre-wrap break-words">{msg.content}</span>
+                  </div>
+                </div>
+              </div>
             ))}
+            
+            {/* Loading Indicator */}
+            {loading && (
+              <div className="flex justify-start mb-4">
+                <div className="flex items-center gap-2 bg-white border border-slate-200 p-3 rounded-2xl shadow-sm">
+                  <Loader size={16} className="animate-spin text-blue-500" />
+                  <span className="text-sm text-slate-500 font-medium">AI Mentor is thinking...</span>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
-        </div>
 
-        {/* Input Area */}
-        <div className="border-t border-gray-200 bg-white p-4 md:p-5">
-          <div className="flex gap-3 items-center">
-            <div className="relative flex-1">
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Type your study abroad question..."
-                className="w-full p-3.5 pl-5 pr-12 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400/60 focus:border-indigo-300 transition-all bg-gray-50/50 text-gray-700 placeholder:text-gray-400 font-medium"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                disabled={loading}
-              />
+          {/* Suggested Questions */}
+          <div className="border-t border-slate-100 px-5 py-3 bg-white">
+            <p className="text-xs font-semibold text-blue-600 uppercase tracking-wide mb-2 flex items-center gap-1">
+              <Sparkles size={12} /> QUICK ASK
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {suggestedQuestions.map((question, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSuggestionClick(question)}
+                  className="text-xs md:text-sm bg-slate-50 hover:bg-blue-50 text-slate-600 hover:text-blue-600 border border-slate-200 rounded-full px-4 py-1.5 transition-all duration-150 hover:border-blue-300 font-medium"
+                >
+                  {question}
+                </button>
+              ))}
             </div>
-            <button
-              onClick={sendMessage}
-              disabled={loading || !input.trim()}
-              className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white px-6 py-3.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 font-semibold"
-            >
-              <Send size={18} />
-              Send
-            </button>
           </div>
-          <p className="text-[11px] text-gray-400 mt-2 ml-1">Press Enter ↵ to send</p>
+
+          {/* Input Area */}
+          <div className="border-t border-slate-200 bg-white p-4 md:p-5">
+            <div className="flex gap-3 items-center">
+              <div className="relative flex-1">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Type your study abroad question..."
+                  className="w-full p-3.5 pl-5 pr-12 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-slate-50 text-slate-700 placeholder:text-slate-400 font-medium"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  disabled={loading}
+                />
+              </div>
+              <button
+                onClick={sendMessage}
+                disabled={loading || !input.trim()}
+                className="bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white px-6 py-3.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 font-semibold group"
+              >
+                <Send size={18} className="group-hover:rotate-12 transition" />
+                Send
+              </button>
+            </div>
+            <p className="text-[11px] text-slate-400 mt-2 ml-1">Press Enter ↵ to send</p>
+          </div>
+        </div>
+
+        {/* Footer Branding */}
+        <div className="text-center text-xs text-slate-400 flex justify-center gap-4">
+          <span className="flex items-center gap-1">🎓 Powered by Groq Llama 3.3</span>
+          <span className="flex items-center gap-1">🌍 Study Abroad Specialist</span>
+          <span className="flex items-center gap-1">💡 24/7 Available</span>
         </div>
       </div>
 
-      {/* Footer Branding */}
-      <div className="text-center text-xs text-gray-400 mt-6 flex justify-center gap-4">
-        <span className="flex items-center gap-1">🎓 Smart AI for education</span>
-        <span className="flex items-center gap-1">🌍 Study abroad assistant</span>
-        <span className="flex items-center gap-1">💡 24/7 available</span>
-      </div>
-
-      {/* Custom Scrollbar Styles */}
       <style jsx>{`
         .custom-scroll::-webkit-scrollbar {
-          width: 5px;
+          width: 6px;
         }
         .custom-scroll::-webkit-scrollbar-track {
-          background: #eef2ff;
+          background: #e2e8f0;
           border-radius: 10px;
         }
         .custom-scroll::-webkit-scrollbar-thumb {
-          background: #c7d2fe;
+          background: #94a3b8;
           border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+          background: #64748b;
         }
         .message-transition {
           transition: all 0.2s ease;

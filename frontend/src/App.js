@@ -109,7 +109,7 @@ const AppContent = () => {
           onClick={handleBackToDashboard}
           className="fixed bottom-6 left-4 z-40 bg-indigo-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-indigo-700 transition-all flex items-center gap-2 text-sm font-medium"
         >
-          ← Back to Dashboard
+          ← Back to Home
         </button>
       )}
       
