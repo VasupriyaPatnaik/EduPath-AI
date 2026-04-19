@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { Sparkles, X } from 'lucide-react';
 import Navbar from './components/Navbar';
 import CareerNavigator from './components/CareerNavigator';
 import ROICalculator from './components/ROICalculator';
@@ -10,6 +11,7 @@ import AdmissionPredictor from './components/AdmissionPredictor';
 import TimelineGenerator from './components/TimelineGenerator';
 import Gamification from './components/Gamification';
 import PersonalizedFeed from './components/PersonalizedFeed';
+import SmartNudges from './components/SmartNudges';
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -33,7 +35,7 @@ const PublicLanding = () => {
   const { isLoggedIn, userName } = getAuthState();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
       <Navbar isLoggedIn={isLoggedIn} userName={userName} showTools={false} />
       <LandingPage onNavigate={() => navigate(isLoggedIn ? '/app' : '/login')} />
     </div>
@@ -45,7 +47,7 @@ const AppContent = () => {
   const [currentView, setCurrentView] = useState('dashboard');
   const [activeTab, setActiveTab] = useState('navigator');
   const [userJourneyStage, setUserJourneyStage] = useState('exploration');
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showFeedPopup, setShowFeedPopup] = useState(false);
   const [pointsNotification, setPointsNotification] = useState(null);
   const isLoggedIn = true;
   const userName = localStorage.getItem('userName') || '';
@@ -94,7 +96,7 @@ const AppContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
       {/* Unified Navbar */}
       <Navbar 
         activeTab={activeTab} 
@@ -107,44 +109,59 @@ const AppContent = () => {
       {currentView === 'tool' && (
         <button
           onClick={handleBackToDashboard}
-          className="fixed bottom-6 left-4 z-40 bg-indigo-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-indigo-700 transition-all flex items-center gap-2 text-sm font-medium"
+          className="fixed bottom-6 left-4 z-40 bg-gradient-to-r from-blue-600 to-teal-500 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-2 text-sm font-medium"
         >
           ← Back to Home
         </button>
       )}
       
       <div className="flex">
-        <div className={`flex-1 ${currentView === 'tool' && showSidebar ? 'lg:mr-96' : ''}`}>
+        <div className="flex-1">
           {renderContent()}
         </div>
-        
-        {currentView === 'tool' && showSidebar && (
-          <div className="fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-30 overflow-y-auto lg:relative lg:translate-x-0 transition-transform duration-300">
-            <div className="p-4">
-              <button onClick={() => setShowSidebar(false)} className="lg:hidden float-right p-2 hover:bg-gray-100 rounded-lg">✕</button>
-              <PersonalizedFeed userProfile={{ interest: 'Computer Science' }} />
-            </div>
-          </div>
-        )}
       </div>
       
-      {currentView === 'tool' && <Gamification />}
-     
+      {/* Gamification - Bottom Right */}
+      <Gamification />
       
+      {/* SmartNudges - Bottom Left (Floating) */}
+      <SmartNudges 
+        userJourneyStage={userJourneyStage} 
+        onNavigate={handleNavigateToTool}
+      />
+
+      {/* PersonalizedFeed - Gamification-style Floating Button */}
+      <button
+        onClick={() => setShowFeedPopup(!showFeedPopup)}
+        className="fixed left-4 bottom-4 z-40 bg-gradient-to-r from-blue-600 to-teal-500 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
+        aria-label="Toggle Personalized Feed"
+      >
+        <Sparkles size={20} />
+      </button>
+
+      {/* PersonalizedFeed - Floating Popup */}
+      {showFeedPopup && (
+        <div className="fixed left-4 bottom-16 z-50 w-80 max-w-[calc(100vw-1rem)]">
+          <div className="relative">
+            <button
+              onClick={() => setShowFeedPopup(false)}
+              className="absolute -top-2 -left-2 bg-white rounded-full p-1 shadow-md z-10"
+              aria-label="Close Personalized Feed"
+            >
+              <X size={14} className="text-slate-500" />
+            </button>
+            <PersonalizedFeed userProfile={{ interest: 'Computer Science' }} />
+          </div>
+        </div>
+      )}
+      
+      {/* Points Notification */}
       {pointsNotification && (
-        <div className="fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-slide-in">
+        <div className="fixed top-20 right-4 bg-emerald-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-slide-in">
           +{pointsNotification.points} XP! {pointsNotification.reason}
         </div>
       )}
       
-      {currentView === 'tool' && (
-        <button
-          onClick={() => setShowSidebar(!showSidebar)}
-          className="fixed right-4 bottom-20 bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition-all z-40 lg:hidden"
-        >
-          {showSidebar ? '✕' : '📋'}
-        </button>
-      )}
     </div>
   );
 };

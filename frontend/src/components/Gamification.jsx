@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Flame, Star, Target, CheckCircle } from 'lucide-react';
+import { Award, Flame, Star, Target, CheckCircle, Gift, Zap, TrendingUp, Users } from 'lucide-react';
 import Confetti from 'react-confetti';
 import CountUp from 'react-countup';
 
@@ -62,7 +62,6 @@ const Gamification = ({ userActivity }) => {
 
   const addPoints = (amount, reason) => {
     setPoints(prev => prev + amount);
-    // Show toast notification
     const event = new CustomEvent('pointsEarned', { detail: { points: amount, reason } });
     window.dispatchEvent(event);
   };
@@ -77,7 +76,6 @@ const Gamification = ({ userActivity }) => {
     if (task && !task.completed) {
       addPoints(task.points, `Completed: ${task.task}`);
       
-      // Check for badge
       const completedCount = dailyTasks.filter(t => t.completed).length + 1;
       if (completedCount === 3 && !badges.includes('task_master')) {
         setBadges(prev => [...prev, 'task_master']);
@@ -109,25 +107,28 @@ const Gamification = ({ userActivity }) => {
             const widget = document.getElementById('gamification-widget');
             if (widget) widget.classList.toggle('hidden');
           }}
-          className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all"
+          className="bg-gradient-to-r from-blue-600 to-teal-500 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
         >
           <Award size={24} />
           {points > 0 && (
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
               {Math.floor(points/100)}
             </span>
           )}
         </button>
 
-        {/* Expanded Widget */}
-        <div id="gamification-widget" className="hidden absolute bottom-16 right-0 w-96 bg-white rounded-xl shadow-2xl border overflow-hidden">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-4">
+        {/* Expanded Widget - Light Theme */}
+        <div id="gamification-widget" className="hidden absolute bottom-16 right-0 w-96 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+          {/* Header - Blue/Teal Gradient */}
+          <div className="bg-gradient-to-r from-blue-600 to-teal-500 text-white p-4">
             <div className="flex justify-between items-center">
-              <h3 className="font-bold">Your Progress</h3>
               <div className="flex items-center gap-2">
-                <Flame className="text-orange-300" size={16} />
-                <span className="font-bold">{streak} day streak</span>
+                <Award size={18} />
+                <h3 className="font-bold">Your Progress</h3>
+              </div>
+              <div className="flex items-center gap-2 bg-white/20 px-2 py-1 rounded-full">
+                <Flame size={14} className="text-orange-300" />
+                <span className="text-sm font-bold">{streak} day streak</span>
               </div>
             </div>
             <div className="mt-3">
@@ -136,48 +137,48 @@ const Gamification = ({ userActivity }) => {
                 <span>{points % 500}/{nextLevelPoints - (level-1)*500} XP</span>
               </div>
               <div className="w-full bg-white/30 rounded-full h-2">
-                <div className="bg-white rounded-full h-2" style={{ width: `${progress}%` }}></div>
+                <div className="bg-white rounded-full h-2 transition-all duration-500" style={{ width: `${progress}%` }}></div>
               </div>
             </div>
           </div>
 
           {/* Points Display */}
-          <div className="bg-gray-50 p-4 border-b">
+          <div className="bg-slate-50 p-4 border-b border-slate-100">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Total Points</span>
-              <span className="text-2xl font-bold text-yellow-600">
+              <span className="text-slate-600 font-medium">Total Points</span>
+              <span className="text-2xl font-bold text-blue-600">
                 <CountUp end={points} duration={1} />
               </span>
             </div>
           </div>
 
           {/* Daily Tasks */}
-          <div className="p-4 border-b">
-            <h4 className="font-semibold mb-3 flex items-center gap-2">
-              <Target size={16} />
+          <div className="p-4 border-b border-slate-100">
+            <h4 className="font-semibold mb-3 flex items-center gap-2 text-slate-700">
+              <Target size={16} className="text-blue-600" />
               Daily Quests
             </h4>
             <div className="space-y-2">
               {dailyTasks.map(task => (
-                <div key={task.id} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-2">
+                <div key={task.id} className="flex items-center justify-between p-2 bg-slate-50 rounded-xl hover:bg-slate-100 transition">
+                  <div className="flex items-center gap-3">
                     <span className="text-xl">{task.icon}</span>
                     <div>
-                      <p className={`text-sm ${task.completed ? 'line-through text-gray-400' : ''}`}>
+                      <p className={`text-sm font-medium ${task.completed ? 'line-through text-slate-400' : 'text-slate-700'}`}>
                         {task.task}
                       </p>
-                      <p className="text-xs text-yellow-600">+{task.points} XP</p>
+                      <p className="text-xs text-blue-600 font-semibold">+{task.points} XP</p>
                     </div>
                   </div>
                   {!task.completed ? (
                     <button
                       onClick={() => completeTask(task.id)}
-                      className="text-xs bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                      className="text-xs bg-gradient-to-r from-blue-600 to-teal-500 text-white px-3 py-1.5 rounded-lg hover:shadow-md transition"
                     >
                       Complete
                     </button>
                   ) : (
-                    <CheckCircle size={16} className="text-green-500" />
+                    <CheckCircle size={18} className="text-emerald-500" />
                   )}
                 </div>
               ))}
@@ -185,19 +186,19 @@ const Gamification = ({ userActivity }) => {
           </div>
 
           {/* Badges */}
-          <div className="p-4 max-h-48 overflow-y-auto">
-            <h4 className="font-semibold mb-3 flex items-center gap-2">
-              <Star size={16} />
+          <div className="p-4 max-h-48 overflow-y-auto border-b border-slate-100">
+            <h4 className="font-semibold mb-3 flex items-center gap-2 text-slate-700">
+              <Star size={16} className="text-amber-500" />
               Achievements
             </h4>
             <div className="flex flex-wrap gap-2">
               {badgesList.map(badge => (
                 <div
                   key={badge.id}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs ${
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
                     badges.includes(badge.id)
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : 'bg-gray-100 text-gray-400'
+                      ? 'bg-amber-100 text-amber-800'
+                      : 'bg-slate-100 text-slate-400'
                   }`}
                   title={badge.requirement}
                 >
@@ -209,16 +210,19 @@ const Gamification = ({ userActivity }) => {
           </div>
 
           {/* Referral Link */}
-          <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50">
-            <p className="text-sm font-semibold mb-2">Invite Friends, Earn Points!</p>
+          <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+            <p className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
+              <Users size={14} className="text-blue-600" />
+              Invite Friends, Earn Points!
+            </p>
             <div className="flex gap-2">
               <input
                 type="text"
                 value={`${window.location.origin}/ref/${Math.random().toString(36).substr(2, 8)}`}
                 readOnly
-                className="flex-1 text-xs p-2 border rounded"
+                className="flex-1 text-xs p-2 border border-slate-200 rounded-lg bg-white text-slate-600"
               />
-              <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+              <button className="bg-gradient-to-r from-blue-600 to-teal-500 text-white px-3 py-1 rounded-lg text-sm hover:shadow-md transition">
                 Copy
               </button>
             </div>

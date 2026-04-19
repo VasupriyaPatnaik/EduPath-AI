@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, BookOpen, Briefcase, Calculator, GraduationCap, Target, X, TrendingUp, DollarSign, FileText, Calendar, Sparkles, ChevronRight } from 'lucide-react';
+import { Bell, BookOpen, Briefcase, Calculator, GraduationCap, Target, X, TrendingUp, DollarSign, FileText, Calendar, Sparkles, ChevronRight, Lightbulb } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -18,7 +18,7 @@ const nudgesByStage = {
     description: 'Check deadlines, admission criteria, and required documents now.',
     action: 'Update application checklist',
     actionId: 'timeline',
-    color: 'from-orange-500 to-red-500'
+    color: 'from-amber-500 to-orange-500'
   },
   loan: {
     icon: Briefcase,
@@ -42,15 +42,15 @@ const nudgesByStage = {
     description: 'AI-powered prediction based on your academic profile.',
     action: 'Predict Now',
     actionId: 'admission',
-    color: 'from-indigo-500 to-purple-500'
+    color: 'from-indigo-500 to-blue-500'
   },
   default: {
-    icon: Bell,
+    icon: Lightbulb,
     title: 'Stay on track this week',
     description: 'Keep moving with one focused step at a time across your study abroad journey.',
     action: 'Continue planning',
     actionId: null,
-    color: 'from-indigo-600 to-purple-600'
+    color: 'from-blue-600 to-teal-500'
   }
 };
 
@@ -60,13 +60,13 @@ const SmartNudges = ({ userJourneyStage = 'default', onNavigate }) => {
   const [currentNudge, setCurrentNudge] = useState(null);
   const navigate = useNavigate();
 
-  // Rotate through nudges based on stage or randomly
+  console.log('SmartNudges rendering, isVisible:', isVisible, 'isMinimized:', isMinimized);
+
   useEffect(() => {
     const nudge = nudgesByStage[userJourneyStage] || nudgesByStage.default;
     setCurrentNudge(nudge);
   }, [userJourneyStage]);
 
-  // Auto-hide nudge after 15 seconds (but not permanently)
   useEffect(() => {
     if (isVisible) {
       const timer = setTimeout(() => {
@@ -81,7 +81,6 @@ const SmartNudges = ({ userJourneyStage = 'default', onNavigate }) => {
       onNavigate(currentNudge.actionId);
       toast.success(`Opening ${currentNudge.title.split(' ')[0]} tool...`);
     } else if (currentNudge?.actionId) {
-      // Fallback navigation if onNavigate not provided
       navigate(`/app?tool=${currentNudge.actionId}`);
     }
     setIsMinimized(true);
@@ -89,7 +88,6 @@ const SmartNudges = ({ userJourneyStage = 'default', onNavigate }) => {
 
   const handleDismiss = () => {
     setIsVisible(false);
-    // Store dismissal in localStorage to avoid showing same nudge again
     const dismissedNudges = JSON.parse(localStorage.getItem('dismissedNudges') || '[]');
     if (!dismissedNudges.includes(userJourneyStage)) {
       dismissedNudges.push(userJourneyStage);
@@ -102,7 +100,6 @@ const SmartNudges = ({ userJourneyStage = 'default', onNavigate }) => {
     setIsVisible(true);
   };
 
-  // Check if this nudge was dismissed
   useEffect(() => {
     const dismissedNudges = JSON.parse(localStorage.getItem('dismissedNudges') || '[]');
     if (dismissedNudges.includes(userJourneyStage)) {
@@ -112,64 +109,64 @@ const SmartNudges = ({ userJourneyStage = 'default', onNavigate }) => {
 
   if (!isVisible) return null;
 
-  const Icon = currentNudge?.icon || Bell;
+  const Icon = currentNudge?.icon || Lightbulb;
 
   return (
     <div className="fixed bottom-4 left-4 z-40 max-w-sm animate-slide-in-left">
       {isMinimized ? (
-        // Minimized state - small button
+        // Minimized state - small button (Light Theme)
         <button
           onClick={handleRestore}
-          className="group flex items-center gap-2 rounded-full bg-[#1A2A4A]/95 backdrop-blur-xl border border-indigo-500/30 px-4 py-2 shadow-xl hover:bg-[#1E3060] transition-all duration-300"
+          className="group flex items-center gap-2 rounded-full bg-white/95 backdrop-blur-xl border border-blue-200 shadow-lg px-4 py-2 hover:shadow-xl transition-all duration-300"
         >
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-300">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-600">
             <Bell size={12} />
           </div>
-          <span className="text-xs text-indigo-200">New insight available</span>
-          <Sparkles size={12} className="text-yellow-400" />
+          <span className="text-xs text-slate-600 font-medium">New insight available</span>
+          <Sparkles size={12} className="text-amber-500" />
         </button>
       ) : (
-        // Expanded state - full nudge card
-        <div className={`rounded-2xl border border-indigo-500/20 bg-[#0A1628]/95 backdrop-blur-xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-indigo-500/10`}>
+        // Expanded state - full nudge card (Light Theme)
+        <div className="rounded-2xl border border-slate-200 bg-white/95 backdrop-blur-xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
           <div className="relative">
             {/* Gradient accent line */}
-            <div className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${currentNudge?.color || 'from-indigo-600 to-purple-600'}`}></div>
+            <div className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${currentNudge?.color || 'from-blue-600 to-teal-500'}`}></div>
             
             <div className="flex items-start gap-3 p-4">
               {/* Icon */}
-              <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r ${currentNudge?.color || 'from-indigo-500 to-purple-600'}/20 text-indigo-300 shrink-0`}>
-                <Icon size={20} />
+              <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r ${currentNudge?.color || 'from-blue-600 to-teal-500'} shadow-md shrink-0`}>
+                <Icon size={18} className="text-white" />
               </div>
               
               {/* Content */}
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-indigo-300">
+                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-blue-600">
                     <Sparkles size={10} />
                     AI Smart Nudge
                   </div>
                   <button
                     onClick={handleDismiss}
-                    className="text-indigo-400 hover:text-indigo-200 transition p-1"
+                    className="text-slate-400 hover:text-slate-600 transition p-1"
                     aria-label="Dismiss"
                   >
                     <X size={14} />
                   </button>
                 </div>
-                <h3 className="mt-1 text-sm font-semibold text-white">{currentNudge?.title}</h3>
-                <p className="mt-1 text-sm text-indigo-200/90 leading-relaxed">{currentNudge?.description}</p>
+                <h3 className="mt-1 text-sm font-semibold text-slate-800">{currentNudge?.title}</h3>
+                <p className="mt-1 text-sm text-slate-500 leading-relaxed">{currentNudge?.description}</p>
                 
                 {/* Action Button */}
                 <button
                   onClick={handleAction}
-                  className={`mt-3 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r ${currentNudge?.color || 'from-indigo-500 to-purple-600'} px-3 py-2 text-sm font-medium text-white transition-all hover:shadow-lg hover:scale-[1.02] group`}
+                  className={`mt-3 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r ${currentNudge?.color || 'from-blue-600 to-teal-500'} px-3 py-2 text-sm font-medium text-white transition-all hover:shadow-lg hover:scale-[1.02] group`}
                 >
                   {currentNudge?.actionId === 'navigator' && <GraduationCap size={14} />}
                   {currentNudge?.actionId === 'roi' && <Calculator size={14} />}
                   {currentNudge?.actionId === 'loan' && <Briefcase size={14} />}
                   {currentNudge?.actionId === 'timeline' && <Calendar size={14} />}
                   {currentNudge?.actionId === 'admission' && <Target size={14} />}
-                  {!currentNudge?.actionId && <Bell size={14} />}
+                  {!currentNudge?.actionId && <Lightbulb size={14} />}
                   {currentNudge?.action}
                   <ChevronRight size={14} className="group-hover:translate-x-0.5 transition" />
                 </button>
@@ -178,8 +175,8 @@ const SmartNudges = ({ userJourneyStage = 'default', onNavigate }) => {
           </div>
           
           {/* Progress bar for auto-minimize */}
-          <div className="h-0.5 bg-indigo-500/20">
-            <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 animate-shrink"></div>
+          <div className="h-0.5 bg-slate-100">
+            <div className={`h-full bg-gradient-to-r ${currentNudge?.color || 'from-blue-600 to-teal-500'} animate-shrink`}></div>
           </div>
         </div>
       )}
