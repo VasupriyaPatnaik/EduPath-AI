@@ -89,3 +89,70 @@ EduPath-AI/
 ```bash
 git clone https://github.com/VasupriyaPatnaik/EduPath-AI.git
 cd EduPath-AI
+
+Set up the backend
+
+bash
+cd backend
+npm install
+# Create a .env file and add your Groq API key:
+# GROQ_API_KEY=your_key_here
+npm run dev        # runs on http://localhost:5000
+Set up the frontend
+
+bash
+cd ../frontend
+npm install
+npm start          # runs on http://localhost:3000
+Login with demo credentials
+
+Email: demo@example.com
+
+Password: password123
+
+Note: No actual database is required – all data is stored in localStorage for the hackathon prototype.
+
+🤝 Contributing
+We welcome contributions! Please follow these steps:
+
+Fork the repository
+
+Create your feature branch (git checkout -b feature/amazing-feature)
+
+Commit your changes (git commit -m 'Add some amazing feature')
+
+Push to the branch (git push origin feature/amazing-feature)
+
+Open a Pull Request
+
+👥 Team
+Name	Role
+B. Vasupriya Patnaik	Frontend Lead, UI/UX Design
+Palavalasa Sai Joshitha	Backend Integration, AI Logic
+📄 License
+Distributed under the MIT License. See LICENSE for more information.
+
+🙏 Acknowledgements
+Groq Cloud for the ultra‑fast Llama 3.3 API
+
+Lucide Icons for beautiful open‑source icons
+
+Tailwind CSS for rapid styling
+
+React Hot Toast for delightful notifications
+
+📬 Contact
+Vasupriya Patnaik – GitHub
+
+Joshitha – GitHub
+
+Project Link: https://github.com/VasupriyaPatnaik/EduPath-AI
+
+⭐ If this project helped you, please give it a star! ⭐
+
+text
+
+---
+
+This README is tailored to the visible structure of your repository (`backend/`, `frontend/`). If you have additional internal files (e.g., actual ML models, a `docs/` folder, or a more complex backend), let me know and I will update the structure accordingly.
+
